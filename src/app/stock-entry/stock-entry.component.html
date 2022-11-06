@@ -1,0 +1,122 @@
+<form #form="ngForm" autocomplete="off" (submit)="onSubmit(form)">
+    <input type="hidden" name="productName" #productName="ngModel" [(ngModel)]="stokEntryFormData.productName">
+    <input type="hidden" name="billNo" #billNo="ngModel" [(ngModel)]="stokEntryFormData.billNo"
+                            class="form-control" readonly>
+    <mat-toolbar color="grey">
+        <span>Stock Entry</span>
+        <span class="example-spacer"></span>
+        <th>
+            <a class="btn btn-outline-success" routerLink="/stock-list"><i class="fa fa-list"></i> Stock List</a>
+        </th>
+        
+    </mat-toolbar>
+    <div class="container" name="billf">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="form-group">
+                    <label>Item Name.</label>
+                    <div class="input-group">
+                        <select name="productCode" #productCode="ngModel" [(ngModel)]="stokEntryFormData.productCode"
+                            class="form-control" (change)="updatePrice($event.target)">
+                            <option value="0">-Select-</option>
+                            <option *ngFor="let item of itemList" value="{{item.productCode}}">{{item.productName}}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label>Purchase Price</label>
+                    <div class="input-group">
+                        <input type="number" name="purchasePrice" #purchasePrice="ngModel"
+                            [(ngModel)]="stokEntryFormData.purchasePrice" class="form-control">
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label>Selling Price</label>
+                    <div class="input-group">
+                        <input type="number" name="sellingPrice" #sellingPrice="ngModel"
+                            [(ngModel)]="stokEntryFormData.sellingPrice" class="form-control">
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>Qty</label>
+                    <div class="input-group">
+                        <input type="number" autofocus (keyup.enter)="onSubmit(form)" name="qty" #qty="ngModel" [(ngModel)]="stokEntryFormData.qty" class="form-control">
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>Mou</label>
+                    <div class="input-group">
+                        <input name="mou" #mou="ngModel" [(ngModel)]="stokEntryFormData.mou" class="form-control"
+                            readonly>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>Grand Total</label>
+
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">$</div>
+                        </div>
+                        <input name="totalAmount" #totalAmount="ngModel" [(ngModel)]="stokEntryFormData.totalAmount"
+                            class="form-control" readonly>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- order items table-->
+        <table class="table  table-striped table-bordered table-hover">
+            <thead>
+                <th>Item Code</th>
+                <th>Item Name</th>
+                <th>Measurement of Unit(MOU)</th>
+                <th>Purchase Price</th>
+                <th>Selling Price</th>
+                <th>Quantity</th>
+                <th>Total Amount</th>
+                <th></th>
+            </thead>
+            <tbody>
+          <!-- <tr *ngIf="orderItems.length==0" [class.text-danger]="!isValid && orderItems.length==0">
+            <td class="font-italic text-center" colspan="5">
+              No food item selected for this order.
+            </td>
+          </tr> -->
+    
+          <tr *ngFor="let item of orderItems;let i=index;">
+            <td>{{item.productCode}}</td>
+            <td>{{item.productName}}</td>
+            <td>{{item.mou}}</td>
+            <td>{{item.purchasePrice}}</td>
+            <td>{{item.sellingPrice}}</td>
+            <td>{{item.qty}}</td>
+            <td>{{item.purchasePrice * item.qty}}</td>
+            <td>
+                <a class="btn btn-sm btn-danger text-white ml-1" (click)="onDeleteOrderItem(item.billNo,i)"><i
+                    class="fa fa-trash"></i></a>
+            </td>
+          </tr>
+        </tbody>
+        </table>
+        <div class="form-group">
+            <button type="button" class="btn btn-dark" (click)="saveItemStock()" mat-raised-button color="primary"><i class="fa fa-database"></i> Submit</button>
+        </div>
+    </div>
+</form>

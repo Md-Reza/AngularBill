@@ -1,0 +1,92 @@
+<mat-toolbar color="grey">
+    <span>New Item Entry</span>
+    <span class="example-spacer"></span>
+
+  <button type="button" class="btn btn-outline-success" (click)="openItemDialog()"><i class="fa fa-plus"></i>
+    Add Item
+  </button>
+
+  </mat-toolbar>
+  
+  <div class="container">
+    <div style="margin-top: 10px;">
+      <mat-form-field appearance="standard">
+        <mat-label>Filter</mat-label>
+        <input matInput (keyup)="applyFilter($event)" placeholder="Search...." #input>
+      </mat-form-field>
+  
+      <div class="mat-elevation-z8">
+        <table mat-table [dataSource]="dataSource" matSort>
+  
+          <!-- Product Code Column -->
+          <ng-container matColumnDef="productCode">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Code </th>
+            <td mat-cell *matCellDef="let row"> {{row.productCode}} </td>
+          </ng-container>
+  
+          <!-- Product Column -->
+          <ng-container matColumnDef="productName">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Product Name </th>
+            <td mat-cell *matCellDef="let row"> {{row.productName}} </td>
+          </ng-container>
+  
+          <!-- Purchase Column -->
+          <ng-container matColumnDef="purchasePrice">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Purchase Price </th>
+            <td mat-cell *matCellDef="let row"> {{row.purchasePrice}} </td>
+          </ng-container>
+  
+          <!-- Sale Price Column -->
+          <ng-container matColumnDef="sellingPrice">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Selling Pricec </th>
+            <td mat-cell *matCellDef="let row"> {{row.sellingPrice}} </td>
+          </ng-container>
+  
+          <!-- Re-Order Column -->
+          <ng-container matColumnDef="reorderLevel">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Re-Order Level </th>
+            <td mat-cell *matCellDef="let row"> {{row.reorderLevel}} </td>
+          </ng-container>
+  
+          <!-- MOU Column -->
+          <ng-container matColumnDef="mou">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> MOU </th>
+            <td mat-cell *matCellDef="let row"> {{row.mou}} </td>
+          </ng-container>
+
+<!-- 
+          <ng-container matColumnDef="mou">
+            <<th mat-header-cell *matHeaderCellDef mat-sort-header> Image </th> -->
+            <!-- <td mat-cell *matCellDef="let row"> {{<img [src]="createImgPath(row.imageName)" alt="profile picture" style="width:60px; height:60px;">}} </td> -->
+          <!-- </ng-container> --> -->
+  
+          <!-- Create Date Column -->
+          <ng-container matColumnDef="createDate">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Created Date </th>
+            <td mat-cell *matCellDef="let row" mat-datepicker-toggle="yyyy-MM-dd"> {{row.createDate| date:'long'}} </td>
+          </ng-container>
+  
+          <!-- action -->
+          <ng-container matColumnDef="action">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Action </th>
+            <td mat-cell *matCellDef="let row">
+              <button mat-icon-button (click)="editItem(row)" color="primary">
+                <mat-icon>edit</mat-icon>
+              </button>
+            </td>
+          </ng-container>
+  
+          <tr mat-header-row *matHeaderRowDef="itemsColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: itemsColumns;"></tr>
+  
+          <!-- Row shown when there is no matching data. -->
+          <tr class="mat-row" *matNoDataRow>
+            <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+          </tr>
+        </table>
+  
+        <mat-paginator [pageSizeOptions]="[10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+      </div>
+    </div>
+  
+  </div>

@@ -1,0 +1,32 @@
+<h1 mat-dialog-title>Add Customer</h1>
+<div class="mat-dialog-content">
+    <form [formGroup]="customerForm">
+
+        <mat-form-field appearance="outline">
+            <mat-label>custId</mat-label>
+            <input formControlName="custId" matInput placeholder="--New--" [readonly]="true">
+            <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label>Customer Name</mat-label>
+            <input formControlName="custName" matInput placeholder="Please Enter Customer Name">
+            <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Address</mat-label>
+            <input formControlName="address" matInput placeholder="Please Enter Customer Addrress">
+            <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Mobile No</mat-label>
+            <input formControlName="mobileNo" matInput placeholder="Please Enter Mobile No.">
+            <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+        </mat-form-field>
+    </form>
+</div>
+<div mat-dailog-action [align]="'end'">
+    <button mat-raised-button color="warn" mat-dialog-close>Close</button>
+    <button style="margin-left: 8px;" mat-raised-button color="primary" (click)="addCustomer()">{{actionBtn}}</button>
+
+</div>

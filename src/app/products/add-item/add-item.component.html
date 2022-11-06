@@ -1,0 +1,74 @@
+<h1 mat-dialog-title>Add Item</h1>
+<div class="mat-dialog-content">
+    <form [formGroup]="itemForm">
+
+        <div class="form-row">
+            <div class="form-group col-md-12">
+                <mat-form-field appearance="outline">
+                    <mat-label>Product Code</mat-label>
+                    <input formControlName="productCode" matInput placeholder="--New--" [readonly]="true">
+                </mat-form-field>
+            </div>
+        </div>
+
+        <mat-form-field appearance="outline">
+            <mat-label>Prodct Name</mat-label>
+            <input formControlName="productName" matInput placeholder="Please Enter Prodct Name">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label>Purchase Price</mat-label>
+            <input matInput type="number" formControlName="purchasePrice" matInput
+                placeholder="Please Enter Purchase Price">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label>Selling Price</mat-label>
+            <input matInput type="number" formControlName="sellingPrice" matInput
+                placeholder="Please Enter Selling Price">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label>Reorder Lavel</mat-label>
+            <input matInput type="number" formControlName="reorderLevel" matInput
+                placeholder="Please Enter Re-Order Level">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label>Select Mou</mat-label>
+            <mat-select formControlName="mou" placeholder="Mou">
+                <mat-option value="PC">PC</mat-option>
+                <mat-option value="KG">KG</mat-option>
+                <mat-option value="BOX">BOX</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <div class="row mt-5">
+            <div class="col">
+                <div class="custom-file">
+                    <input type="file" class="form-control" accept="image/*" class="custom-file-input"
+                        formControlName="imageName" (change)="handleFileInput($any($event.target).files)">
+                    <label class="custom-file-label" for="imageName">{{ uploadFileLabel }}</label>
+                </div>
+            </div>
+            <div class="col-auto pl-sm-0">
+                <button type="button" class="btn btn-outline-primary" ngbTooltip="Upload"
+                    (click)="upload()">Upload</button>
+            </div>
+        </div>
+        <div class="row mt-3" *ngIf="working">
+            <div class="col">
+                <div class="progress">
+                    <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': uploadProgress + '%' }"
+                        [attr.aria-valuenow]="uploadProgress" aria-valuemin="0" aria-valuemax="100">{{ uploadProgress
+                        }}%</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <button type="submit" class="btn btn-success" (click)="addItem($event)"><i class="fa fa-database"></i>
+                {{actionBtn}}</button>
+        </div>
+    </form>
+</div>
